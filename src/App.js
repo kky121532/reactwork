@@ -47,7 +47,7 @@ class App extends Component {
     }
 
     render() {
-        const {useremail, username, password, btnCheck} = this.state
+        const {useremail, username, password, btnCheck} = this.state;
 
         return (
             <div>
