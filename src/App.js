@@ -18,16 +18,17 @@ class App extends Component {
     }
 
     isSafe = () => {
+        const { useremail, username, password, btnCheck } = this.state;
         // 소문자, 대문자 각각 한개씩 포함 check
         let str = /(?=.*[a-z])(?=.*[A-Z])/;
 
         let pwCheck = {
             // 이메일에 @ 포함되어 있는지 체크
-            emailCheck : this.state.useremail.includes('@'),
+            emailCheck : useremail.includes('@'),
             // 이름과 같은 글자가 들어 있는지 체크
-            nameCheck : this.state.password.includes(this.state.username),
-            strCheck : str.test(this.state.password),
-            pwlengCheck : this.state.password.length,
+            nameCheck : password.includes(username),
+            strCheck : str.test(password),
+            pwlengCheck : password.length,
         }
 
         let {emailCheck, nameCheck, pwlengCheck, strCheck} = pwCheck;
@@ -46,12 +47,14 @@ class App extends Component {
     }
 
     render() {
+        const {useremail, username, password, btnCheck} = this.state
+
         return (
             <div>
-                <input type="text" name="useremail" value={this.state.useremail} onChange={this.handleChange} placeholder="이메일을 입력하세요" />
-                <input type="text" name="username" value={this.state.username} onChange={this.handleChange} placeholder="이름을 입력하세요" />
-                <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="비밀번호 입력" />
-                <input type="submit" disabled={this.state.btnCheck === true ? true : false} />
+                <input type="text" name="useremail" value={useremail} onChange={this.handleChange} placeholder="이메일을 입력하세요" />
+                <input type="text" name="username" value={username} onChange={this.handleChange} placeholder="이름을 입력하세요" />
+                <input type="password" name="password" value={password} onChange={this.handleChange} placeholder="비밀번호 입력" />
+                <input type="submit" disabled={btnCheck === true ? true : false} />
             </div>
         );
     }
