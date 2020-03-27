@@ -23,27 +23,25 @@ class App extends Component {
         let str = /(?=.*[a-z])(?=.*[A-Z])/;
 
         let pwCheck = {
-            // 이메일에 @ 포함되어 있는지 체크
+            // 이메일에 @ 포함 ? true : false
             emailCheck : useremail.includes('@'),
-            // 이름과 같은 글자가 들어 있는지 체크
-            nameCheck : password.includes(username),
+            // 비밀번호에 이름과 같은 문자가 들어 있지 않음 ? true : false
+            nameCheck : !password.includes(username),
+            // 비밀번호에 대, 소문자가 각각 한 개 씩 들어 있음 ? true : false
             strCheck : str.test(password),
-            pwlengCheck : password.length,
+            // 비밀번호의 길이가 6자 이상 ? true : false
+            pwlengCheck : password.length > 5,
         }
 
-        let {emailCheck, nameCheck, pwlengCheck, strCheck} = pwCheck;
-
-        if ( emailCheck === false || pwlengCheck < 6 || nameCheck === true || strCheck === false ) {
-            // disabled 활성화
-            this.setState({
-                btnCheck: true,
-            })
-        } else {
-            // disabled 비활성화
-            this.setState({
-                btnCheck: false,
-            })
+        let result = [];
+        for ( var key in pwCheck ) {
+            result = result && pwCheck[key];
         }
+        
+        // result 가 true면 버튼 활성화
+        this.setState({
+            btnCheck: result,
+        })
     }
 
     render() {
@@ -54,7 +52,7 @@ class App extends Component {
                 <input type="text" name="useremail" value={useremail} onChange={this.handleChange} placeholder="이메일을 입력하세요" />
                 <input type="text" name="username" value={username} onChange={this.handleChange} placeholder="이름을 입력하세요" />
                 <input type="password" name="password" value={password} onChange={this.handleChange} placeholder="비밀번호 입력" />
-                <input type="submit" disabled={btnCheck === true ? true : false} />
+                <input type="submit" disabled={!btnCheck} />
             </div>
         );
     }
