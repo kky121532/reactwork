@@ -5,7 +5,7 @@ class App extends Component {
         useremail: '',
         username: '',
         password: '',
-        btnCheck: true,
+        btnCheck: false,
     }
 
     handleChange = (e) => {
@@ -33,7 +33,7 @@ class App extends Component {
             pwlengCheck : password.length > 5,
         }
 
-        let result = [];
+        let result = true;
         for ( var key in pwCheck ) {
             result = result && pwCheck[key];
         }
